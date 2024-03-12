@@ -1,14 +1,14 @@
 {
-  "name": "my-react-app",
+  "name": "projeto",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.88",
+    "@types/react": "^18.2.65",
     "@types/react-dom": "^18.2.21",
     "axios": "^1.6.7",
     "react": "^18.2.0",
@@ -40,8 +40,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@types/react": "^18.2.65"
   }
 }
