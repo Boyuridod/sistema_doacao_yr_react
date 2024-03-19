@@ -1,13 +1,10 @@
 import React from 'react';
-import Buttons from './Components/Buttons';
+import ReactDOM from 'react-dom';
+import App from './App';
 
-function App() {
-  return (
-    <div className="App">
-      <h1>Express + React Integration</h1>
-      <Buttons />
-    </div>
-  );
-}
-
-export default App;
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
