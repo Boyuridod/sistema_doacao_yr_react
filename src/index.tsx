@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Inicial from './Screen/Inicial';
+// import Inicial from './Screen/Inicial/Inicial.tsx';
+import Formulario from './Screen/Formulario/Formulario.tsx';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Inicial />
+    {/* <Inicial /> */}
+    <Formulario />
   </React.StrictMode>,
   document.getElementById('root')
 );
