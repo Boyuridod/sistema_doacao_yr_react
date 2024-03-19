@@ -40,5 +40,38 @@ img{
 
     position: absolute;
     right: 0;
+    bottom: -100px;
+
+}
+
+.botoes_form{
+
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+
+}
+
+.botoes_form button{
+
+    padding: 5px;
+
+}
+
+#submit{
+
+    margin-right: 10px;
+    color: white;
+    background-color: rgb(0, 255, 0);
+    border: 1px solid black;
+
+}
+
+#limpar{
+
+    margin-right: 2px;
+    color: white;
+    background-color: rgb(255, 0, 0);
+    border: 1px solid black;
 
 }

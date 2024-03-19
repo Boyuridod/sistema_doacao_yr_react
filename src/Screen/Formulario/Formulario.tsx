@@ -18,15 +18,17 @@ function Formulario() {
                     <br />
                     <label htmlFor="Dropbox">Dropbox: </label>
                     <select name="Dropbox" id="Dropbox" defaultValue="">
-                        <option value="" hidden>Selecione uma opção</option>
+                        <option value="default" hidden>Selecione uma opção</option>
                         <option value="opcao1">Opção 1</option>
                         <option value="opcao2">Opção 2</option>
                         <option value="opcao3">Opção 3</option>
                         <option value="opcao4">Opção 4</option>
                     </select>
                 </fieldset>
-                <button>Botão</button>
-                <button>Botão</button>
+                <div className="botoes_form">
+                <button type="submit" id="submit">Enviar</button>
+                <button type="reset" id="limpar">Limpar</button>
+                </div>
             </form>
             <img src="/Images/Nuvem.png" alt="Nuvem" />
         </body>
