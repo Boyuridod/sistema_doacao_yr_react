@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import "../Formulario/Formulario.css";
+import { clear } from "@testing-library/user-event/dist/clear";
 
 function Formulario() {
   const [formState, setFormState] = useState({
     texto: "",
-    inteiro: 0,
+    inteiro: "",
     booleano: false,
     opcaoSelect: "",
   });
+
+  const [responseData, setResponseData] = useState(null); // Estado para armazenar os dados recebidos do backend
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -28,12 +31,12 @@ function Formulario() {
     })
       .then((response) => {
         if (response.ok) {
-          return response.text();
+          return response.json(); // Converter a resposta para JSON
         }
         throw new Error("Erro ao enviar dados.");
       })
       .then((data) => {
-        console.log(data); // Exibir mensagem de sucesso
+        setResponseData(data); // Armazenar os dados recebidos do backend no estado
       })
       .catch((error) => {
         console.error("Erro:", error);
@@ -98,7 +101,14 @@ function Formulario() {
           <button type="reset" id="limpar">
             Limpar
           </button>
-        </div>
+          </div>
+          {responseData && ( // Renderizar os dados recebidos somente se houver uma resposta do servidor
+          <div className="dados-recebidos">
+            <h2>Dados Recebidos do Servidor:</h2>
+              <pre>resposta</pre>
+            <pre>{JSON.stringify(responseData, null, 2)}</pre> {/* Exibir os dados recebidos em formato JSON */}
+          </div>
+        )}
       </form>
       <img src="/Images/Nuvem.png" alt="Nuvem" />
     </body>

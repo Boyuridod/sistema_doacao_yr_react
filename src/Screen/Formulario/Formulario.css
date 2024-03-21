@@ -75,3 +75,14 @@ img{
     border: 1px solid black;
 
 }
+
+.dados-recebidos{
+
+    border: 2px solid;            /* Adiciona uma borda sólida de 2 pixels na cor preta */
+    padding: 20px;                /* Adiciona um espaçamento interno de 20 pixels para melhorar a aparência */
+    max-width: 400px;             /* Define a largura máxima do formulário */
+    margin: 0 auto;               /* Define margens automáticas nos lados esquerdo e direito para centralizar horizontalmente */
+    margin-top: 10px;
+    background-color: white;    /* Deixa o formulário com fundo branco*/
+
+}
