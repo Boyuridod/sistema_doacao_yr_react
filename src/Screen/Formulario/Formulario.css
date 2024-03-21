@@ -1,0 +1,88 @@
+body{
+
+    background-color: aqua;
+    overflow: hidden;            /*Proíbe o usuário de escrolar*/
+
+}
+
+Form{
+
+    border: 2px solid;            /* Adiciona uma borda sólida de 2 pixels na cor preta */
+    padding: 20px;                /* Adiciona um espaçamento interno de 20 pixels para melhorar a aparência */
+    max-width: 400px;             /* Define a largura máxima do formulário */
+    margin: 0 auto;               /* Define margens automáticas nos lados esquerdo e direito para centralizar horizontalmente */
+    margin-top: 30vh;             /* Adiciona um espaço superior para centralizar verticalmente */
+    background-color: white;    /* Deixa o formulário com fundo branco*/
+
+}
+
+fieldset{
+
+    border: 2px solid;
+
+}
+
+legend{
+
+    color: black;
+    border: 2px solid;
+    font-size: 25px;
+
+}
+
+label, select{
+
+    border-color: black;
+
+}
+
+img{
+
+    position: absolute;
+    right: 0;
+    bottom: -100px;
+
+}
+
+.botoes_form{
+
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+
+}
+
+.botoes_form button{
+
+    padding: 5px;
+
+}
+
+#submit{
+
+    margin-right: 10px;
+    color: white;
+    background-color: rgb(0, 255, 0);
+    border: 1px solid black;
+
+}
+
+#limpar{
+
+    margin-right: 2px;
+    color: white;
+    background-color: rgb(255, 0, 0);
+    border: 1px solid black;
+
+}
+
+.dados-recebidos{
+
+    border: 2px solid;            /* Adiciona uma borda sólida de 2 pixels na cor preta */
+    padding: 20px;                /* Adiciona um espaçamento interno de 20 pixels para melhorar a aparência */
+    max-width: 400px;             /* Define a largura máxima do formulário */
+    margin: 0 auto;               /* Define margens automáticas nos lados esquerdo e direito para centralizar horizontalmente */
+    margin-top: 10px;
+    background-color: white;    /* Deixa o formulário com fundo branco*/
+
+}
