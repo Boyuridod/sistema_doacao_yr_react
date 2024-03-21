@@ -2,9 +2,17 @@ import React from "react";
 import "../Formulario/Formulario.css"
 
 function Formulario() {
+
+    const handleSignupForm = (event) => {
+
+        event.preventDefault()
+        console.log("Submeteu")
+ 
+    }
+
     return (
         <body>
-            <form action="">
+            <form action="" onSubmit={handleSignupForm}>
                 <fieldset>
                     <legend>Formulário</legend>
                     <label htmlFor="">Texto: </label>
