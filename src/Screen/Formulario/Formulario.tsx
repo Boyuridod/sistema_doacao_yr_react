@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "../Formulario/Formulario.css";
-import { clear } from "@testing-library/user-event/dist/clear";
 
 function Formulario() {
   const [formState, setFormState] = useState({
@@ -8,6 +7,7 @@ function Formulario() {
     inteiro: "",
     booleano: false,
     opcaoSelect: "",
+    opcaoRadio: ""
   });
 
   const [responseData, setResponseData] = useState(null); // Estado para armazenar os dados recebidos do backend
@@ -93,6 +93,40 @@ function Formulario() {
             <option value="opcao3">Opção 3</option>
             <option value="opcao4">Opção 4</option>
           </select>
+          <br />
+          <label htmlFor="opcaoRadio">Escolha uma opção:</label>
+          <br />
+          <input
+            type="radio"
+            name="opcaoRadio"
+            id="opcaoRadio1"
+            value="opcao1"
+            checked={formState.opcaoRadio === "opcao1"}
+            onChange={handleChange}
+          />
+          <label htmlFor="opcaoRadio1">Opção 1</label>
+          <br />
+          <input
+            type="radio"
+            name="opcaoRadio"
+            id="opcaoRadio2"
+            value="opcao2"
+            checked={formState.opcaoRadio === "opcao2"}
+            onChange={handleChange}
+          />
+          <label htmlFor="opcaoRadio2">Opção 2</label>
+          <br />
+          <input
+            type="radio"
+            name="opcaoRadio"
+            id="opcaoRadio3"
+            value="opcao3"
+            checked={formState.opcaoRadio === "opcao3"}
+            onChange={handleChange}
+          />
+          <label htmlFor="opcaoRadio3">Opção 3</label>
+          <br />
+          <br />
         </fieldset>
         <div className="botoes_form">
           <button type="submit" id="submit">
@@ -101,11 +135,11 @@ function Formulario() {
           <button type="reset" id="limpar">
             Limpar
           </button>
-          </div>
-          {responseData && ( // Renderizar os dados recebidos somente se houver uma resposta do servidor
+        </div>
+        {responseData && ( // Renderizar os dados recebidos somente se houver uma resposta do servidor
           <div className="dados-recebidos">
             <h2>Dados Recebidos do Servidor:</h2>
-              <pre>resposta</pre>
+            <pre>resposta</pre>
             <pre>{JSON.stringify(responseData, null, 2)}</pre> {/* Exibir os dados recebidos em formato JSON */}
           </div>
         )}
