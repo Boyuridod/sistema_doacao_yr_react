@@ -98,30 +98,31 @@ function Formulario() {
           <br />
           <input
             type="radio"
-            name="opcaoRadio"
+            name="opcaoRadio1"
             id="opcaoRadio1"
-            value="opcao1"
-            checked={formState.opcaoRadio === "opcao1"}
+            value="opcaoRadio1"
+            checked={formState.opcaoRadio === "opcaoRadio1"}
             onChange={handleChange}
           />
           <label htmlFor="opcaoRadio1">Opção 1</label>
           <br />
           <input
             type="radio"
-            name="opcaoRadio"
+            name="opcaoRadio2"
             id="opcaoRadio2"
-            value="opcao2"
-            checked={formState.opcaoRadio === "opcao2"}
+            value="opcaoRadio2"
+            checked={formState.opcaoRadio === "opcaoRadio2"}
             onChange={handleChange}
           />
+          
           <label htmlFor="opcaoRadio2">Opção 2</label>
           <br />
           <input
             type="radio"
-            name="opcaoRadio"
+            name="opcaoRadio3"
             id="opcaoRadio3"
-            value="opcao3"
-            checked={formState.opcaoRadio === "opcao3"}
+            value="opcaoRadio3"
+            checked={formState.opcaoRadio === "opcaoRadio3"}
             onChange={handleChange}
           />
           <label htmlFor="opcaoRadio3">Opção 3</label>
