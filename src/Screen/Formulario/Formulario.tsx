@@ -10,7 +10,15 @@ function Formulario() {
     opcaoRadio: ""
   });
 
-  const [responseData, setResponseData] = useState(null); // Estado para armazenar os dados recebidos do backend
+  const handleClearForm = () => setFormState({
+    texto: "",
+    inteiro: "",
+    booleano: false, 
+    opcaoSelect: "",
+    opcaoRadio: ""
+  });
+
+  const [responseData, setResponseData] = useState(null);
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -22,6 +30,7 @@ function Formulario() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     fetch("http://localhost:5000/api/formulario", {
       method: "POST",
       headers: {
@@ -31,17 +40,36 @@ function Formulario() {
     })
       .then((response) => {
         if (response.ok) {
+          // Envio bem-sucedido
           return response.json(); // Converter a resposta para JSON
         }
         throw new Error("Erro ao enviar dados.");
       })
       .then((data) => {
-        setResponseData(data); // Armazenar os dados recebidos do backend no estado
+        // Armazenar os dados recebidos do backend no estado
+        setResponseData(data);
+
+        // Verifica se todos os campos obrigatórios foram preenchidos
+        const requiredFieldsFilled =
+          formState.texto.trim().length >= 2 &&
+          formState.texto.trim().length <= 255 &&
+          Number.isInteger(Number(formState.inteiro)) &&
+          Number(formState.inteiro) > 0 &&
+          Number(formState.inteiro) < 1000 &&
+          typeof formState.booleano === "boolean" &&
+          formState.opcaoSelect.trim() !== "" &&
+          formState.opcaoRadio.trim() !== "";
+
+        // Limpar o estado do formulário apenas se todos os campos obrigatórios estiverem preenchidos
+        if (requiredFieldsFilled) {
+          handleClearForm();
+        }
       })
       .catch((error) => {
         console.error("Erro:", error);
       });
   };
+
 
   return (
     <body>
@@ -98,7 +126,7 @@ function Formulario() {
           <br />
           <input
             type="radio"
-            name="opcaoRadio1"
+            name="opcaoRadio"
             id="opcaoRadio1"
             value="opcaoRadio1"
             checked={formState.opcaoRadio === "opcaoRadio1"}
@@ -108,18 +136,18 @@ function Formulario() {
           <br />
           <input
             type="radio"
-            name="opcaoRadio2"
+            name="opcaoRadio"
             id="opcaoRadio2"
             value="opcaoRadio2"
             checked={formState.opcaoRadio === "opcaoRadio2"}
             onChange={handleChange}
           />
-          
+
           <label htmlFor="opcaoRadio2">Opção 2</label>
           <br />
           <input
             type="radio"
-            name="opcaoRadio3"
+            name="opcaoRadio"
             id="opcaoRadio3"
             value="opcaoRadio3"
             checked={formState.opcaoRadio === "opcaoRadio3"}
@@ -133,7 +161,7 @@ function Formulario() {
           <button type="submit" id="submit">
             Enviar
           </button>
-          <button type="reset" id="limpar">
+          <button type="reset" id="limpar" onClick={handleClearForm}>
             Limpar
           </button>
         </div>
