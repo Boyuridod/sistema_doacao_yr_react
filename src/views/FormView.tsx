@@ -1,13 +1,11 @@
 import React from "react";
-import { formState, handleChange, handleSubmit, handleClearForm, responseData } from  "../controllers/FormController";
 import "../styles/Formulario.css";
 
-function FormView() {
-
+function FormularioView({ formState, handleClearForm, handleChange, handleSubmit, responseData }) {
   return (
     <body>
       <form onSubmit={handleSubmit}>
-      <fieldset>
+        <fieldset>
           <legend>Formulário</legend>
           <label htmlFor="texto">Texto: </label>
           <input
@@ -101,7 +99,6 @@ function FormView() {
         {responseData && ( // Renderizar os dados recebidos somente se houver uma resposta do servidor
           <div className="dados-recebidos">
             <h2>Dados Recebidos do Servidor:</h2>
-            <pre>resposta</pre>
             <pre>{JSON.stringify(responseData, null, 2)}</pre> {/* Exibir os dados recebidos em formato JSON */}
           </div>
         )}
@@ -111,4 +108,4 @@ function FormView() {
   );
 }
 
-export default FormView;
+export default FormularioView;

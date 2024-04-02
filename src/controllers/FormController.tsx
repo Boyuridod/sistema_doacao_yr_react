@@ -1,21 +1,14 @@
 import React, { useState } from "react";
-import FormModel from "../models/FormModel";
-import FormView from "../views/FormView";
+import FormModel from '../models/FormModel.tsx';
+import FormView from '../views/FormView.tsx';
 
 function FormController() {
-  const [formState, setFormState] = useState(FormModel);
+  const { formState, handleClearForm, handleChange } = FormModel();
   const [responseData, setResponseData] = useState(null);
-
-  const handleChange = (event) => {
-    const { name, value, type, checked } = event.target;
-    setFormState((prevState) => ({
-      ...prevState,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     fetch("http://localhost:5000/api/formulario", {
       method: "POST",
       headers: {
@@ -55,20 +48,12 @@ function FormController() {
       });
   };
 
-  const handleClearForm = () => setFormState({
-    texto: "",
-    inteiro: "",
-    booleano: false, 
-    opcaoSelect: "",
-    opcaoRadio: ""
-  });
-
   return (
     <FormView
       formState={formState}
+      handleClearForm={handleClearForm}
       handleChange={handleChange}
       handleSubmit={handleSubmit}
-      handleClearForm={handleClearForm}
       responseData={responseData}
     />
   );

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Formulario from './Screen/Formulario/Formulario.tsx';
+import Formulario from './controllers/FormController.tsx'
 
 ReactDOM.render(
   <React.StrictMode>
