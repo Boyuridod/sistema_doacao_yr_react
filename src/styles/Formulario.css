@@ -64,6 +64,7 @@ img{
     color: white;
     background-color: rgb(0, 255, 0);
     border: 1px solid black;
+    
 
 }
 
@@ -76,6 +77,7 @@ img{
 
 }
 
+
 .dados-recebidos{
 
     border: 2px solid;            /* Adiciona uma borda sólida de 2 pixels na cor preta */
@@ -86,3 +88,4 @@ img{
     background-color: white;    /* Deixa o formulário com fundo branco*/
 
 }
+
