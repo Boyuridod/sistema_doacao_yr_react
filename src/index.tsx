@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Formulario from './controllers/FormController.tsx'
+import CadastroDoador from './Screen/CadastroDoador/CadastroDoador.tsx'
 
 ReactDOM.render(
   <React.StrictMode>
-    <Formulario />
+    <CadastroDoador />
   </React.StrictMode>,
   document.getElementById('root')
 );

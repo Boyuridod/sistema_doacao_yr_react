@@ -1,0 +1,37 @@
+@import url("../Colors/cores.css");
+
+body{
+
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+
+}
+
+.imagem_hospital{
+
+    height: 50vh;
+
+}
+
+.area_cadastro{
+
+    background-color: var(--azulpastel);
+    display: flex;
+    align-items: center;
+    width: 100vh;
+
+}
+
+.formulario{
+
+    background-color: var(--branco);
+
+}
+
+.opcao{
+
+    display: flex;
+
+}
