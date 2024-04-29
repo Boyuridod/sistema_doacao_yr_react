@@ -1,21 +1,22 @@
 @import url("../Colors/cores.css");
 
-body{
+body {
 
     margin: 0;
     padding: 0;
     display: flex;
     height: 100vh;
+    overflow: hidden
 
 }
 
-.imagem_hospital{
+.ImagemHospital {
 
-    height: 50vh;
+    width: auto;
 
 }
 
-.area_cadastro{
+.area_cadastro {
 
     background-color: var(--azulpastel);
     display: flex;
@@ -24,14 +25,55 @@ body{
 
 }
 
-.formulario{
+.formulario {
 
     background-color: var(--branco);
+    border: 1px solid;
+    border-radius: 10%;
+    margin: auto;
 
 }
 
-.opcao{
+.titulo_formulario {
+
+    margin: 20px;
+
+}
+
+.labelFormulario{
+
+    margin: 10px;
+
+}
+
+#nome, #cpf, #contato{
+
+    margin-left: 10px;
+
+}
+
+#nome, #cpf{
+
+    margin-bottom: 10px;
+
+}
+
+#nome {
+
+    width: 40vh;
+
+}
+
+.opcao {
 
     display: flex;
+
+}
+
+.opcao_tipo, .opcao_rh{
+
+    margin-left: 10px;
+    margin-right: 30px;
+    margin-bottom: 20px;
 
 }
