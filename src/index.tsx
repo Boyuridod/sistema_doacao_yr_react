@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import CadastroDoador from './Screen/CadastroDoador/CadastroDoador.tsx'
+// import TelaInicial from './Screen/TelaInicial/TelaInicial.tsx';
+import BuscaDoador from './Screen/BuscaDoador/BuscaDoador.tsx';
 
 ReactDOM.render(
   <React.StrictMode>
-    <CadastroDoador />
+    <BuscaDoador/>
   </React.StrictMode>,
   document.getElementById('root')
 );

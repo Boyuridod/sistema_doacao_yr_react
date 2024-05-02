@@ -1,0 +1,27 @@
+@import url('../../colors/cores.css');
+
+body{
+
+    background-color: var(--azulpastel);
+    display: flex;
+
+}
+
+.CampoDePesquisa{
+
+    background-color: var(--branco);
+
+}
+
+.CampoResultadoPesquisa{
+
+    background-color: var(--branco);
+    margin-left: 50vh;
+
+}
+
+.Opcao{
+
+    display: flex;
+
+}

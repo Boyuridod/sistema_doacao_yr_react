@@ -1,6 +1,5 @@
 import React from "react";
 import "../../styles/CadastroDoador/CadastroDoador.css"
-// import "../../../public/Images/sala_de_hospital.jpeg"
 
 function CadastroDoador() {
 
@@ -102,7 +101,6 @@ function CadastroDoador() {
             </div>
         </body>
     )
-
 }
 
 export default CadastroDoador;
