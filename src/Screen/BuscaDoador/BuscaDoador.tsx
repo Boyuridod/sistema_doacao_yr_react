@@ -6,107 +6,122 @@ function BuscaDoador() {
     return (
         <body>
             <div className="CampoDePesquisa">
-            <form className="formulario" action="">
-                    <h1 className="titulo_formulario">Cadastro de doador</h1>
-                    <label htmlFor="nome" className="labelFormulario">Nome:
+                <form className="Formulario" action="">
+                    <h1 className="TituloFormulario">Busca de doador</h1>
+                    <label htmlFor="nome" className="LabelFormulario">Nome:
                         <input
                             type="text"
                             name="nome"
                             id="nome"
                             placeholder="Insira o nome aqui"
-                            className="inputFormulario"
+                            className="InputFormulario"
                         />
                     </label>
-                    <br />
-                    <label htmlFor="cpf" className="labelFormulario">CPF:
+                    <label htmlFor="cpf" className="LabelFormulario">CPF:
                         <input
                             type="text"
                             name="cpf"
                             id="cpf"
                             placeholder="Insira o CPF"
-                            className="inputFormulario"
+                            className="InputFormulario"
                         />
                     </label>
-                    <br />
-                    <label htmlFor="contato" className="labelFormulario">Contato:
+                    <label htmlFor="contato" className="LabelFormulario">Contato:
                         <input
                             type="tel"
                             name="contato"
                             id="contato"
-                            className="inputFormulario"
+                            className="InputFormulario"
                             placeholder="Número de contato"
                         />
                     </label>
-                    <br />
                     <div className="Opcao">
                         <div className="Opcao_tipo">
-                            <p>Tipo sanguíneo:</p>
+                            <label>Tipo sanguíneo:</label>
                             <input
                                 type="radio"
-                                name="opcao_rh"
+                                name="opcao_tipo"
+                                className="Opcao_tipo"
                                 id="todos"
                             />
                             <label htmlFor="todos">Todos</label>
-                            <br />
                             <input
                                 type="radio"
                                 name="opcao_tipo"
+                                className="Opcao_tipo"
                                 id="A"
                             />
                             <label htmlFor="A">A</label>
-                            <br />
                             <input
                                 type="radio"
                                 name="opcao_tipo"
+                                className="Opcao_tipo"
                                 id="B"
                             />
                             <label htmlFor="B">B</label>
-                            <br />
                             <input
                                 type="radio"
                                 name="opcao_tipo"
+                                className="Opcao_tipo"
                                 id="AB"
                             />
                             <label htmlFor="AB">AB</label>
-                            <br />
                             <input
                                 type="radio"
                                 name="opcao_tipo"
+                                className="Opcao_tipo"
                                 id="O"
                             />
                             <label htmlFor="O">O</label>
                         </div>
                         <div className="Opcao_rh">
-                            <p>Fator RH:</p>
+                            <label>Fator RH:</label>
                             <input
                                 type="radio"
                                 name="opcao_rh"
+                                className="Opcao_rh"
                                 id="todos"
                             />
                             <label htmlFor="todos">Todos</label>
-                            <br />
                             <input
                                 type="radio"
                                 name="opcao_rh"
+                                className="Opcao_rh"
                                 id="positivo"
                             />
                             <label htmlFor="positivo">+</label>
-                            <br />
                             <input
                                 type="radio"
                                 name="opcao_rh"
+                                className="Opcao_rh"
                                 id="negativo"
                             />
                             <label htmlFor="negativo">-</label>
                         </div>
                     </div>
-                    <div className="Botao">
+                    <div className="DivBotao">
                         <button id="buscar">Buscar</button>
                     </div>
                 </form>
             </div>
             <div className="CampoResultadoPesquisa">
-                <h1>Resultados da busca devem aparecer aqui</h1>
+                <table className="TabelaResultado">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Nome</th>
+                            <th>CPF</th>
+                            <th>Contato</th>
+                            <th>Tipo Sanguíneo</th>
+                            <th>FatorRH</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody className="CorpoTabela">
+
+                    </tbody>
+                </table>
             </div>
         </body>
     )
