@@ -3,13 +3,65 @@ import "../styles/CadastroDoador.css"
 
 function CadastroDoador() {
 
+    const handleCadastro = async (event: React.FormEvent<HTMLFormElement>) => {
+        //event.preventDefault(); // Evita o comportamento padrão do formulário de recarregar a página
+
+        // Obtenha os dados do formulário
+        const nomeInput = document.getElementById("nome") as HTMLInputElement | null;
+        const cpfInput = document.getElementById("cpf") as HTMLInputElement | null;
+        const contatoInput = document.getElementById("contato") as HTMLInputElement | null;
+        const tipoSanguineoInput = document.querySelector('input[name="opcao_tipo"]:checked') as HTMLInputElement | null;
+        const fatorRhInput = document.querySelector('input[name="opcao_rh"]:checked') as HTMLInputElement | null;
+
+        // Verifica se os elementos foram encontrados antes de acessar suas propriedades
+        if (nomeInput && cpfInput && contatoInput && tipoSanguineoInput && fatorRhInput) {
+            const nome = nomeInput.value;
+            const cpf = cpfInput.value;
+            const contato = contatoInput.value;
+            const tipoSanguineo = tipoSanguineoInput.id;
+            const fatorRh = fatorRhInput.id;
+
+            // Monta o objeto com os dados
+            const dadosDoador = {
+                nome,
+                cpf,
+                contato,
+                tipoSanguineo,
+                fatorRh
+            };
+
+            // Faz a requisição POST para o backend
+            try {
+                //console.log('Dados do doador:', dadosDoador);
+                const response = await fetch('http://localhost:5000/api/insertDoador', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(dadosDoador)
+                });
+
+                if (response.ok) {
+                    console.log("Doador cadastrado com sucesso!");
+                    // Realize aqui qualquer ação adicional após o cadastro bem-sucedido
+                } else {
+                    console.error('Falha ao cadastrar doador.');
+                }
+            } catch (error) {
+                console.error('Erro ao fazer a requisição:', error);
+            }
+        } else {
+            console.error('Elementos do formulário não foram encontrados.');
+        }
+    };
+
     return (
         <body>
             <div className="ImagemHospital">
                 <img src="/Images/sala_de_hospital_cortada.jpeg" alt="Img" />
             </div>
             <div className="area_cadastro">
-                <form className="formulario" action="">
+                <form className="formulario" onSubmit={handleCadastro}>
                     <h1 className="titulo_formulario">Cadastro de doador</h1>
                     <label htmlFor="nome" className="labelFormulario">Nome:
                         <input
