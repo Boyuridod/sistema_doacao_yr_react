@@ -18,8 +18,8 @@ function CadastroDoador() {
             const nome = nomeInput.value;
             const cpf = cpfInput.value;
             const contato = contatoInput.value;
-            const tipoSanguineo = tipoSanguineoInput.id;
-            const fatorRh = fatorRhInput.id;
+            const tipoSanguineo = tipoSanguineoInput.value;
+            const fatorRh = fatorRhInput.value;
 
             // Monta o objeto com os dados
             const dadosDoador = {
@@ -103,6 +103,7 @@ function CadastroDoador() {
                                 type="radio"
                                 name="opcao_tipo"
                                 id="A"
+                                value="A"
                             />
                             <label htmlFor="A">A</label>
                             <br />
@@ -110,6 +111,7 @@ function CadastroDoador() {
                                 type="radio"
                                 name="opcao_tipo"
                                 id="B"
+                                value="B"
                             />
                             <label htmlFor="B">B</label>
                             <br />
@@ -117,6 +119,7 @@ function CadastroDoador() {
                                 type="radio"
                                 name="opcao_tipo"
                                 id="AB"
+                                value="AB"
                             />
                             <label htmlFor="AB">AB</label>
                             <br />
@@ -124,6 +127,7 @@ function CadastroDoador() {
                                 type="radio"
                                 name="opcao_tipo"
                                 id="O"
+                                value="O"
                             />
                             <label htmlFor="O">O</label>
                         </div>
@@ -132,16 +136,18 @@ function CadastroDoador() {
                             <input
                                 type="radio"
                                 name="opcao_rh"
-                                id="positivo"
+                                id="POSITIVO"
+                                value="+"
                             />
-                            <label htmlFor="positivo">+</label>
+                            <label htmlFor="POSITIVO">+</label>
                             <br />
                             <input
                                 type="radio"
                                 name="opcao_rh"
-                                id="negativo"
+                                id="NEGATIVO"
+                                value="-"
                             />
-                            <label htmlFor="negativo">-</label>
+                            <label htmlFor="NEGATIVO">-</label>
                             <br />
                         </div>
                     </div>
