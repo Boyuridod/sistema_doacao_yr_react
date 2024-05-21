@@ -1,60 +1,59 @@
 import React, { useState } from "react";
 import "../styles/BuscaDoador.css";
 
+interface Doador {
+    codigo: number;
+    nome: string;
+    cpf: string;
+    contato: string;
+    tipoSanguineo: string;
+    fatorRh: string;
+}
+
 function BuscaDoador() {
-    const [doadores, setDoadores] = useState([]);
+    const [doadores, setDoadores] = useState<Doador[]>([]);
 
-   function CadastroDoador() {
-
-    const handleCadastro = async (event: React.FormEvent<HTMLFormElement>) => {
-        //event.preventDefault(); // Evita o comportamento padrão do formulário de recarregar a página
+    const handleBusca = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault(); // Evita o comportamento padrão do formulário de recarregar a página
 
         // Obtenha os dados do formulário
-        const nomeInput = document.getElementById("nome") as HTMLInputElement | null;
-        const cpfInput = document.getElementById("cpf") as HTMLInputElement | null;
-        const contatoInput = document.getElementById("contato") as HTMLInputElement | null;
-        const tipoSanguineoInput = document.querySelector('input[name="opcao_tipo"]:checked') as HTMLInputElement | null;
-        const fatorRhInput = document.querySelector('input[name="opcao_rh"]:checked') as HTMLInputElement | null;
+        const nomeInput = (document.getElementById("nome") as HTMLInputElement).value.trim();
+        const cpfInput = (document.getElementById("cpf") as HTMLInputElement).value.trim();
+        const contatoInput = (document.getElementById("contato") as HTMLInputElement).value.trim();
+        const tipoSanguineoInput = (document.querySelector('input[name="opcao_tipo"]:checked') as HTMLInputElement)?.value;
+        const fatorRhInput = (document.querySelector('input[name="opcao_rh"]:checked') as HTMLInputElement)?.value;
 
-        // Verifica se os elementos foram encontrados antes de acessar suas propriedades
-        if (nomeInput && cpfInput && contatoInput && tipoSanguineoInput && fatorRhInput) {
-            const nome = nomeInput.value;
-            const cpf = cpfInput.value;
-            const contato = contatoInput.value;
-            const tipoSanguineo = tipoSanguineoInput.value;
-            const fatorRh = fatorRhInput.value;
+        // Construa os parâmetros da consulta
+        const params = new URLSearchParams();
+        if (nomeInput) {
+            params.append("nome", nomeInput);
+        }
+        if (cpfInput) {
+            params.append("cpf", cpfInput);
+        }
+        if (contatoInput) {
+            params.append("contato", contatoInput);
+        }
+        if (tipoSanguineoInput) {
+            params.append("tipoSanguineo", tipoSanguineoInput);
+        }
+        if (fatorRhInput) {
+            params.append("fatorRh", fatorRhInput);
+        }
 
-            // Monta o objeto com os dados
-            const dadosDoador = {
-                nome,
-                cpf,
-                contato,
-                tipoSanguineo,
-                fatorRh
-            };
+        // Faz a requisição GET para o backend
+        try {
+            const response = await fetch(`http://localhost:5000/api/getOneDoador?${params.toString()}`);
 
-            // Faz a requisição POST para o backend
-            try {
-                //console.log('Dados do doador:', dadosDoador);
-                const response = await fetch('http://localhost:5000/api/insertDoador', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(dadosDoador)
-                });
-
-                if (response.ok) {
-                    console.log("Doador cadastrado com sucesso!");
-                    // Realize aqui qualquer ação adicional após o cadastro bem-sucedido
-                } else {
-                    console.error('Falha ao cadastrar doador.');
-                }
-            } catch (error) {
-                console.error('Erro ao fazer a requisição:', error);
+            if (response.ok) {
+                const data: Doador[] = await response.json();
+                setDoadores(data);
+                console.log("Busca realizada com sucesso!");
+            } else {
+                console.error('Falha na busca de doador.');
             }
-        } else {
-            console.error('Elementos do formulário não foram encontrados.');
+        } catch (error) {
+            console.error('Erro ao fazer a requisição:', error);
         }
     };
 
@@ -97,15 +96,8 @@ function BuscaDoador() {
                                 type="radio"
                                 name="opcao_tipo"
                                 className="Opcao_tipo"
-                                id="todos"
-                                defaultChecked
-                            />
-                            <label htmlFor="todos">Todos</label>
-                            <input
-                                type="radio"
-                                name="opcao_tipo"
-                                className="Opcao_tipo"
                                 id="A"
+                                value="A"
                             />
                             <label htmlFor="A">A</label>
                             <input
@@ -113,6 +105,7 @@ function BuscaDoador() {
                                 name="opcao_tipo"
                                 className="Opcao_tipo"
                                 id="B"
+                                value="B"
                             />
                             <label htmlFor="B">B</label>
                             <input
@@ -120,6 +113,7 @@ function BuscaDoador() {
                                 name="opcao_tipo"
                                 className="Opcao_tipo"
                                 id="AB"
+                                value="AB"
                             />
                             <label htmlFor="AB">AB</label>
                             <input
@@ -127,6 +121,7 @@ function BuscaDoador() {
                                 name="opcao_tipo"
                                 className="Opcao_tipo"
                                 id="O"
+                                value="O"
                             />
                             <label htmlFor="O">O</label>
                         </div>
@@ -136,15 +131,8 @@ function BuscaDoador() {
                                 type="radio"
                                 name="opcao_rh"
                                 className="Opcao_rh"
-                                id="todos"
-                                defaultChecked
-                            />
-                            <label htmlFor="todos">Todos</label>
-                            <input
-                                type="radio"
-                                name="opcao_rh"
-                                className="Opcao_rh"
                                 id="positivo"
+                                value="positivo"
                             />
                             <label htmlFor="positivo">+</label>
                             <input
@@ -152,6 +140,7 @@ function BuscaDoador() {
                                 name="opcao_rh"
                                 className="Opcao_rh"
                                 id="negativo"
+                                value="negativo"
                             />
                             <label htmlFor="negativo">-</label>
                         </div>
