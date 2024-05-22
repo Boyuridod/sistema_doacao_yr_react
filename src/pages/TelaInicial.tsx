@@ -9,6 +9,7 @@ function TelaInicial() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path='/TelaInicial' element={<TelaInicial/>} />
         <Route path='/CadastroDoador' element={<CadastroDoador/>} />
         <Route path='/BuscaDoador' element={<BuscaDoador/>} />
       </Routes>
