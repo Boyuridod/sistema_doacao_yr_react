@@ -1,84 +1,185 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 import "../styles/BuscaDoador.css";
 
-function BuscaDoador() {
-    const [nome, setNome] = useState('');
-    const [resultado, setResultado] = useState(null);
+interface Doador {
+    nome: string;
+    cpf: string;
+    contato: string;
+    tipoSanguineo: string;
+    fatorRh: string;
+}
 
-    const handleNomeChange = (event) => {
-        setNome(event.target.value);
+function BuscaDoador() {
+    const [doadores, setDoadores] = useState<Doador[]>([]);
+    const [searchParams, setSearchParams] = useState({
+        nome: "",
+        cpf: "",
+        contato: "",
+        tipoSanguineo: "",
+        fatorRh: ""
+    });
+
+    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+        setSearchParams(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
     };
 
-    const handleSubmit = async (event) => {
+    const handleSearch = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
+        console.log('Sending search parameters:', searchParams);
+
         try {
-            const response = await fetch(`http://localhost:5000/api/getOneDoador?nome=${nome}`, {
-                method: 'GET',
+            const response = await fetch('http://localhost:5000/api/getOneDoador', {
+                method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json'
                 },
+                body: JSON.stringify(searchParams)
             });
 
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
+            if (response.ok) {
+                const data: Doador[] = await response.json();
+                setDoadores(data);
+            } else {
+                console.error('Falha ao buscar doadores.');
             }
-
-            const result = await response.json();
-            setResultado(result);
         } catch (error) {
-            console.error('Houve um problema com a solicitação fetch:', error);
-            setResultado({ error: 'Doador não encontrado ou erro ao buscar doador' });
+            console.error('Erro ao fazer a requisição:', error);
         }
     };
 
     return (
         <div>
             <div className="CampoDePesquisa">
-                <form className="Formulario" onSubmit={handleSubmit}>
-                    <h1 className="TituloFormulario">Busca de doador</h1>
-                    <label htmlFor="nome" className="LabelFormulario">Nome:
+                <form className="formulario" onSubmit={handleSearch}>
+                    <h1 className="titulo_formulario">Busca de doador</h1>
+                    <label htmlFor="nome" className="labelFormulario">Nome:
                         <input
                             type="text"
                             name="nome"
                             id="nome"
                             placeholder="Insira o nome aqui"
-                            className="InputFormulario"
-                            value={nome}
-                            onChange={handleNomeChange}
+                            className="inputFormulario"
+                            value={searchParams.nome}
+                            onChange={handleInputChange}
                         />
                     </label>
-                    <div className="DivBotao">
-                        <button id="buscar" type="submit">Buscar</button>
+                    <br />
+                    <label htmlFor="cpf" className="labelFormulario">CPF:
+                        <input
+                            type="text"
+                            name="cpf"
+                            id="cpf"
+                            placeholder="Insira o CPF"
+                            className="inputFormulario"
+                            value={searchParams.cpf}
+                            onChange={handleInputChange}
+                        />
+                    </label>
+                    <br />
+                    <label htmlFor="contato" className="labelFormulario">Contato:
+                        <input
+                            type="tel"
+                            name="contato"
+                            id="contato"
+                            className="inputFormulario"
+                            placeholder="Número de contato"
+                            value={searchParams.contato}
+                            onChange={handleInputChange}
+                        />
+                    </label>
+                    <br />
+                    <div className="Opcao">
+                        <div className="Opcao_tipo">
+                            <p>Tipo sanguíneo:</p>
+                            <input
+                                type="radio"
+                                name="tipoSanguineo"
+                                id="A"
+                                value="A"
+                                checked={searchParams.tipoSanguineo === 'A'}
+                                onChange={handleInputChange}
+                            />
+                            <label htmlFor="A">A</label>
+                            <br />
+                            <input
+                                type="radio"
+                                name="tipoSanguineo"
+                                id="B"
+                                value="B"
+                                checked={searchParams.tipoSanguineo === 'B'}
+                                onChange={handleInputChange}
+                            />
+                            <label htmlFor="B">B</label>
+                            <br />
+                            <input
+                                type="radio"
+                                name="tipoSanguineo"
+                                id="AB"
+                                value="AB"
+                                checked={searchParams.tipoSanguineo === 'AB'}
+                                onChange={handleInputChange}
+                            />
+                            <label htmlFor="AB">AB</label>
+                            <br />
+                            <input
+                                type="radio"
+                                name="tipoSanguineo"
+                                id="O"
+                                value="O"
+                                checked={searchParams.tipoSanguineo === 'O'}
+                                onChange={handleInputChange}
+                            />
+                            <label htmlFor="O">O</label>
+                        </div>
+                        <div className="Opcao_rh">
+                            <p>Fator RH:</p>
+                            <input
+                                type="radio"
+                                name="fatorRh"
+                                id="positivo"
+                                value="+"
+                                checked={searchParams.fatorRh === '+'}
+                                onChange={handleInputChange}
+                            />
+                            <label htmlFor="positivo">+</label>
+                            <br />
+                            <input
+                                type="radio"
+                                name="fatorRh"
+                                id="negativo"
+                                value="-"
+                                checked={searchParams.fatorRh === '-'}
+                                onChange={handleInputChange}
+                            />
+                            <label htmlFor="negativo">-</label>
+                        </div>
+                    </div>
+                    <div className="Botao">
+                        <button type="submit" id="buscar">Buscar</button>
                     </div>
                 </form>
             </div>
             <div className="CampoResultadoPesquisa">
-                {resultado ? (
-                    <table className="TabelaResultado">
-                        <thead>
-                            <tr>
-                                <th>Código</th>
-                                <th>Nome</th>
-                                <th>CPF</th>
-                                <th>Contato</th>
-                                <th>Tipo Sanguíneo</th>
-                                <th>Fator RH</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{resultado.codigo}</td>
-                                <td>{resultado.nome}</td>
-                                <td>{resultado.cpf}</td>
-                                <td>{resultado.contato}</td>
-                                <td>{resultado.tipoSanguineo}</td>
-                                <td>{resultado.fatorRh}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <h1>Resultados da busca:</h1>
+                {doadores.length > 0 ? (
+                    <ul>
+                        {doadores.map((doador, index) => (
+                            <li key={index}>
+                                <p>Nome: {doador.nome}</p>
+                                <p>CPF: {doador.cpf}</p>
+                                <p>Contato: {doador.contato}</p>
+                                <p>Tipo Sanguíneo: {doador.tipoSanguineo}</p>
+                                <p>Fator RH: {doador.fatorRh}</p>
+                            </li>
+                        ))}
+                    </ul>
                 ) : (
-                    <p>Nenhum resultado encontrado</p>
+                    <p>Nenhum resultado encontrado.</p>
                 )}
             </div>
         </div>
