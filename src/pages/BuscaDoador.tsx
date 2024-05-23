@@ -1,4 +1,5 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/BuscaDoador.css";
 
 interface Doador {
@@ -10,6 +11,7 @@ interface Doador {
 }
 
 function BuscaDoador() {
+    const navigate = useNavigate();
     const [doadores, setDoadores] = useState<Doador[]>([]);
     const [searchParams, setSearchParams] = useState({
         nome: "",
@@ -18,6 +20,8 @@ function BuscaDoador() {
         tipoSanguineo: "",
         fatorRh: ""
     });
+    const [loading, setLoading] = useState(false);
+    const [noResults, setNoResults] = useState(false);
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -29,8 +33,8 @@ function BuscaDoador() {
 
     const handleSearch = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
-        console.log('Sending search parameters:', searchParams);
+        setLoading(true);
+        setNoResults(false);
 
         try {
             const response = await fetch('http://localhost:5000/api/getOneDoador', {
@@ -44,129 +48,114 @@ function BuscaDoador() {
             if (response.ok) {
                 const data: Doador[] = await response.json();
                 setDoadores(data);
+                if (data.length === 0) {
+                    setNoResults(true);
+                }
             } else {
                 console.error('Falha ao buscar doadores.');
             }
         } catch (error) {
             console.error('Erro ao fazer a requisição:', error);
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
-        <div>
-            <div className="CampoDePesquisa">
-                <form className="formulario" onSubmit={handleSearch}>
-                    <h1 className="titulo_formulario">Busca de doador</h1>
-                    <label htmlFor="nome" className="labelFormulario">Nome:
+        <div className="container">
+            <button className="back-button" onClick={() => navigate('/TelaInicial')}>Voltar</button>
+            <div className="search-container">
+                <form className="form" onSubmit={handleSearch}>
+                    <h1 className="title">Busca de doador</h1>
+                    <div className="input-group">
                         <input
                             type="text"
                             name="nome"
-                            id="nome"
-                            placeholder="Insira o nome aqui"
-                            className="inputFormulario"
+                            placeholder="Nome"
                             value={searchParams.nome}
                             onChange={handleInputChange}
                         />
-                    </label>
-                    <br />
-                    <label htmlFor="cpf" className="labelFormulario">CPF:
                         <input
                             type="text"
                             name="cpf"
-                            id="cpf"
-                            placeholder="Insira o CPF"
-                            className="inputFormulario"
+                            placeholder="CPF"
                             value={searchParams.cpf}
                             onChange={handleInputChange}
                         />
-                    </label>
-                    <br />
-                    <label htmlFor="contato" className="labelFormulario">Contato:
                         <input
                             type="tel"
                             name="contato"
-                            id="contato"
-                            className="inputFormulario"
-                            placeholder="Número de contato"
+                            placeholder="Contato"
                             value={searchParams.contato}
                             onChange={handleInputChange}
                         />
-                    </label>
-                    <br />
-                    <div className="Opcao">
-                        <div className="Opcao_tipo">
-                            <p>Tipo sanguíneo:</p>
-                            <input
-                                type="radio"
-                                name="tipoSanguineo"
-                                id="A"
-                                value="A"
-                                checked={searchParams.tipoSanguineo === 'A'}
-                                onChange={handleInputChange}
-                            />
-                            <label htmlFor="A">A</label>
-                            <br />
-                            <input
-                                type="radio"
-                                name="tipoSanguineo"
-                                id="B"
-                                value="B"
-                                checked={searchParams.tipoSanguineo === 'B'}
-                                onChange={handleInputChange}
-                            />
-                            <label htmlFor="B">B</label>
-                            <br />
-                            <input
-                                type="radio"
-                                name="tipoSanguineo"
-                                id="AB"
-                                value="AB"
-                                checked={searchParams.tipoSanguineo === 'AB'}
-                                onChange={handleInputChange}
-                            />
-                            <label htmlFor="AB">AB</label>
-                            <br />
-                            <input
-                                type="radio"
-                                name="tipoSanguineo"
-                                id="O"
-                                value="O"
-                                checked={searchParams.tipoSanguineo === 'O'}
-                                onChange={handleInputChange}
-                            />
-                            <label htmlFor="O">O</label>
-                        </div>
-                        <div className="Opcao_rh">
-                            <p>Fator RH:</p>
-                            <input
-                                type="radio"
-                                name="fatorRh"
-                                id="positivo"
-                                value="+"
-                                checked={searchParams.fatorRh === '+'}
-                                onChange={handleInputChange}
-                            />
-                            <label htmlFor="positivo">+</label>
-                            <br />
-                            <input
-                                type="radio"
-                                name="fatorRh"
-                                id="negativo"
-                                value="-"
-                                checked={searchParams.fatorRh === '-'}
-                                onChange={handleInputChange}
-                            />
-                            <label htmlFor="negativo">-</label>
-                        </div>
                     </div>
-                    <div className="Botao">
-                        <button type="submit" id="buscar">Buscar</button>
+                    <div className="radio-group">
+                        <input
+                            type="radio"
+                            name="tipoSanguineo"
+                            id="A"
+                            value="A"
+                            checked={searchParams.tipoSanguineo === 'A'}
+                            onChange={handleInputChange}
+                        />
+                        <label htmlFor="A">A</label>
+                        <input
+                            type="radio"
+                            name="tipoSanguineo"
+                            id="B"
+                            value="B"
+                            checked={searchParams.tipoSanguineo === 'B'}
+                            onChange={handleInputChange}
+                        />
+                        <label htmlFor="B">B</label>
+                        <input
+                            type="radio"
+                            name="tipoSanguineo"
+                            id="AB"
+                            value="AB"
+                            checked={searchParams.tipoSanguineo === 'AB'}
+                            onChange={handleInputChange}
+                        />
+                        <label htmlFor="AB">AB</label>
+                        <input
+                            type="radio"
+                            name="tipoSanguineo"
+                            id="O"
+                            value="O"
+                            checked={searchParams.tipoSanguineo === 'O'}
+                            onChange={handleInputChange}
+                        />
+                        <label htmlFor="O">O</label>
                     </div>
+                    <div className="radio-group">
+                        <input
+                            type="radio"
+                            name="fatorRh"
+                            id="positivo"
+                            value="+"
+                            checked={searchParams.fatorRh === '+'}
+                            onChange={handleInputChange}
+                        />
+                        <label htmlFor="positivo">+</label>
+                        <input
+                            type="radio"
+                            name="fatorRh"
+                            id="negativo"
+                            value="-"
+                            checked={searchParams.fatorRh === '-'}
+                            onChange={handleInputChange}
+                        />
+                        <label htmlFor="negativo">-</label>
+                    </div>
+                    <button type="submit" className="search-button" disabled={loading}>
+                        {loading ? 'Buscando...' : 'Buscar'}
+                    </button>
                 </form>
             </div>
-            <div className="CampoResultadoPesquisa">
+            <div className="results-container">
                 <h1>Resultados da busca:</h1>
-                {doadores.length > 0 ? (
+                {noResults ? <p>Nenhum resultado encontrado.</p> : (
                     <ul>
                         {doadores.map((doador, index) => (
                             <li key={index}>
@@ -178,8 +167,6 @@ function BuscaDoador() {
                             </li>
                         ))}
                     </ul>
-                ) : (
-                    <p>Nenhum resultado encontrado.</p>
                 )}
             </div>
         </div>
