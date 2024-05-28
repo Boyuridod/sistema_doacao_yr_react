@@ -156,17 +156,36 @@ function BuscaDoador() {
             <div className="results-container">
                 <h1>Resultados da busca:</h1>
                 {noResults ? <p>Nenhum resultado encontrado.</p> : (
-                    <ul>
-                        {doadores.map((doador, index) => (
-                            <li key={index}>
-                                <p>Nome: {doador.nome}</p>
-                                <p>CPF: {doador.cpf}</p>
-                                <p>Contato: {doador.contato}</p>
-                                <p>Tipo Sanguíneo: {doador.tipoSanguineo}</p>
-                                <p>Fator RH: {doador.fatorRh}</p>
-                            </li>
-                        ))}
-                    </ul>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>CPF</th>
+                                <th>Contato</th>
+                                <th>Tipo Sanguíneo</th>
+                                <th>Fator RH:</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {doadores.map((doador, index) => (
+                                <tr key={index}>
+                                    <th>{doador.nome}</th>
+                                    <th>{doador.cpf}</th>
+                                    <th>{doador.contato}</th>
+                                    <th>{doador.tipoSanguineo}</th>
+                                    <th>{doador.fatorRh}</th>
+                                    <th><button>AA</button></th>
+                                    <th><button>BB</button></th>
+
+                                </tr>
+                            ))
+                        }
+                        </tbody>
+                    </table>
+
                 )}
             </div>
         </div>
