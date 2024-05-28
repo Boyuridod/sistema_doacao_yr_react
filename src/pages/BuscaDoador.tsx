@@ -177,12 +177,10 @@ function BuscaDoador() {
                                     <th>{doador.contato}</th>
                                     <th>{doador.tipoSanguineo}</th>
                                     <th>{doador.fatorRh}</th>
-                                    <th><button>AA</button></th>
-                                    <th><button>BB</button></th>
-
+                                    <th><button>Editar</button></th>
+                                    <th><button>Excluir</button></th>
                                 </tr>
-                            ))
-                        }
+                            ))}
                         </tbody>
                     </table>
 

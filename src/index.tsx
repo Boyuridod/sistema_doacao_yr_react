@@ -1,7 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import TelaInicial from './pages/TelaInicial.tsx';
-import BuscaDoador from './pages/BuscaDoador.tsx';
 
 
 const container = document.getElementById('root');
