@@ -8,6 +8,7 @@ interface Doador {
     contato: string;
     tipoSanguineo: string;
     fatorRh: string;
+    codigo: number;
 }
 
 function BuscaDoador() {
@@ -22,6 +23,8 @@ function BuscaDoador() {
     });
     const [loading, setLoading] = useState(false);
     const [noResults, setNoResults] = useState(false);
+    const [isEditing, setIsEditing] = useState<{ [key: number]: boolean }>({});
+    const [updating, setUpdating] = useState<{ [key: number]: boolean }>({});
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -58,6 +61,63 @@ function BuscaDoador() {
             console.error('Erro ao fazer a requisição:', error);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleDelete = async (codigo: number) => {
+        try {
+            const response = await fetch('http://localhost:5000/api/deleteDoador', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ codigo })
+            });
+
+            if (response.ok) {
+                setDoadores(doadores.filter(doador => doador.codigo !== codigo));
+            } else {
+                console.error('Falha ao excluir doador.');
+            }
+        } catch (error) {
+            console.error('Erro ao fazer a requisição:', error);
+        }
+    };
+
+    const handleEdit = (codigo: number) => {
+        setIsEditing(prevState => ({ ...prevState, [codigo]: !prevState[codigo] }));
+    };
+
+    const handleUpdateChange = (codigo: number, event: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+        setDoadores(prevDoadores =>
+            prevDoadores.map(doador =>
+                doador.codigo === codigo ? { ...doador, [name]: value } : doador
+            )
+        );
+    };
+
+    const handleUpdate = async (codigo) => {
+        try {
+            setUpdating(prevState => ({ ...prevState, [codigo]: true }));
+            const updatedDoador = doadores.find(doador => doador.codigo === codigo);
+            const response = await fetch('http://localhost:5000/api/updateDoador', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedDoador)
+            });
+    
+            if (response.ok) {
+                setIsEditing(prevState => ({ ...prevState, [codigo]: false }));
+            } else {
+                console.error('Falha ao atualizar doador.');
+            }
+        } catch (error) {
+            console.error('Erro ao fazer a requisição:', error);
+        } finally {
+            setUpdating(prevState => ({ ...prevState, [codigo]: false }));
         }
     };
 
@@ -156,7 +216,6 @@ function BuscaDoador() {
             <div className="results-container">
                 <h1>Resultados da busca:</h1>
                 {noResults ? <p>Nenhum resultado encontrado.</p> : (
-
                     <table>
                         <thead>
                             <tr>
@@ -164,7 +223,7 @@ function BuscaDoador() {
                                 <th>CPF</th>
                                 <th>Contato</th>
                                 <th>Tipo Sanguíneo</th>
-                                <th>Fator RH:</th>
+                                <th>Fator RH</th>
                                 <th></th>
                                 <th></th>
                             </tr>
@@ -172,18 +231,73 @@ function BuscaDoador() {
                         <tbody>
                             {doadores.map((doador, index) => (
                                 <tr key={index}>
-                                    <th>{doador.nome}</th>
-                                    <th>{doador.cpf}</th>
-                                    <th>{doador.contato}</th>
-                                    <th>{doador.tipoSanguineo}</th>
-                                    <th>{doador.fatorRh}</th>
-                                    <th><button>Editar</button></th>
-                                    <th><button>Excluir</button></th>
+                                    <td>
+                                        {isEditing[doador.codigo] ? (
+                                            <input
+                                                type="text"
+                                                name="nome"
+                                                value={doador.nome}
+                                                onChange={(e) => handleUpdateChange(doador.codigo, e)}
+                                            />
+                                        ) : (
+                                            doador.nome
+                                        )}
+                                    </td>
+                                    <td>{doador.cpf}</td>
+                                    <td>
+                                        {isEditing[doador.codigo] ? (
+                                            <input
+                                                type="text"
+                                                name="contato"
+                                                value={doador.contato}
+                                                onChange={(e) => handleUpdateChange(doador.codigo, e)}
+                                            />
+                                        ) : (
+                                            doador.contato
+                                        )}
+                                    </td>
+                                    <td>
+                                        {isEditing[doador.codigo] ? (
+                                            <input
+                                                type="text"
+                                                name="tipoSanguineo"
+                                                value={doador.tipoSanguineo}
+                                                onChange={(e) => handleUpdateChange(doador.codigo, e)}
+                                            />
+                                        ) : (
+                                            doador.tipoSanguineo
+                                        )}
+                                    </td>
+                                    <td>
+                                        {isEditing[doador.codigo] ? (
+                                            <input
+                                                type="text"
+                                                name="fatorRh"
+                                                value={doador.fatorRh}
+                                                onChange={(e) => handleUpdateChange(doador.codigo, e)}
+                                            />
+                                        ) : (
+                                            doador.fatorRh
+                                        )}
+                                    </td>
+                                    <td>
+                                        {isEditing[doador.codigo] ? (
+                                           <button 
+                                           onClick={() => handleUpdate(doador.codigo)}
+                                           disabled={updating[doador.codigo]} // Desabilita o botão se a atualização estiver em andamento
+                                       >
+                                           {updating[doador.codigo] ? 'Atualizando...' : 'Salvar'}
+                                       </button>
+                                       
+                                        ) : (
+                                            <button onClick={() => handleEdit(doador.codigo)}>Editar</button>
+                                        )}
+                                    </td>
+                                    <td><button onClick={() => handleDelete(doador.codigo)}>Excluir</button></td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
-
                 )}
             </div>
         </div>
