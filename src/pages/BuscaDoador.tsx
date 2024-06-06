@@ -123,7 +123,7 @@ function BuscaDoador() {
 
     return (
         <div className="container">
-            <button className="back-button" onClick={() => navigate('/TelaInicial')}>Voltar</button>
+            {/* <button className="back-button" onClick={() => navigate('/')}>Voltar</button> */}
             <div className="search-container">
                 <form className="form" onSubmit={handleSearch}>
                     <h1 className="title">Busca de doador</h1>

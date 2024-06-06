@@ -7,20 +7,14 @@ import BuscaDoador from './BuscaDoador.tsx';
 
 function TelaInicial() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/TelaInicial' element={<TelaInicial/>} />
-        <Route path='/CadastroDoador' element={<CadastroDoador/>} />
-        <Route path='/BuscaDoador' element={<BuscaDoador/>} />
-      </Routes>
-      
+    <div>
       <h1>Tela Inicial</h1>
       <nav>
         <Link to="/CadastroDoador">Cadastrar doador</Link>
         <br />
         <Link to="/BuscaDoador">Buscar Doador</Link>
       </nav>
-    </BrowserRouter>
+    </div>
   );
 }
 
