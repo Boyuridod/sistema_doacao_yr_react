@@ -1,6 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/BuscaDoador.css";
+import ReactModal from 'react-modal';
 
 interface Doador {
     nome: string;
@@ -108,7 +109,7 @@ function BuscaDoador() {
                 },
                 body: JSON.stringify(updatedDoador)
             });
-    
+
             if (response.ok) {
                 setIsEditing(prevState => ({ ...prevState, [codigo]: false }));
             } else {
@@ -224,8 +225,9 @@ function BuscaDoador() {
                                 <th>Contato</th>
                                 <th>Tipo Sanguíneo</th>
                                 <th>Fator RH</th>
-                                <th></th>
-                                <th></th>
+                                <th>Botão Editar</th>
+                                <th>Botão Doação</th>
+                                <th>Botão Excluir</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -282,18 +284,26 @@ function BuscaDoador() {
                                     </td>
                                     <td>
                                         {isEditing[doador.codigo] ? (
-                                           <button 
-                                           onClick={() => handleUpdate(doador.codigo)}
-                                           disabled={updating[doador.codigo]} // Desabilita o botão se a atualização estiver em andamento
-                                       >
-                                           {updating[doador.codigo] ? 'Atualizando...' : 'Salvar'}
-                                       </button>
-                                       
+                                            <button
+                                                onClick={() => handleUpdate(doador.codigo)}
+                                                disabled={updating[doador.codigo]} // Desabilita o botão se a atualização estiver em andamento
+                                            >
+                                                {updating[doador.codigo] ? 'Atualizando...' : 'Salvar'}
+                                            </button>
+
                                         ) : (
                                             <button onClick={() => handleEdit(doador.codigo)}>Editar</button>
                                         )}
                                     </td>
-                                    <td><button onClick={() => handleDelete(doador.codigo)}>Excluir</button></td>
+                                    <td>
+                                        <Popup trigger={<button>Nova Doação</button>} position="right center">
+                                        <div> Conteúdo do Popup </div>
+                                        <button> Fechar </button>
+                                        </Popup>
+                                    </td>
+                                    <td>
+                                        <button onClick={() => handleDelete(doador.codigo)}>Excluir</button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
