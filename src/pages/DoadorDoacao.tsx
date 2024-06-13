@@ -1,7 +1,7 @@
 import React from "react";
 import '../styles/DoadorDoacao.css'
 
-function Doacao() {
+function DoadorDoacao() {
 
     return (
         <body>
@@ -59,4 +59,4 @@ function Doacao() {
 
 }
 
-export default Doacao;
+export default DoadorDoacao;
