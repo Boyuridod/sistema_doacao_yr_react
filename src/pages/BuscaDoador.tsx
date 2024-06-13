@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../styles/BuscaDoador.css";
-import ReactModal from 'react-modal';
 
 interface Doador {
     nome: string;
@@ -296,10 +296,7 @@ function BuscaDoador() {
                                         )}
                                     </td>
                                     <td>
-                                        <Popup trigger={<button>Nova Doação</button>} position="right center">
-                                        <div> Conteúdo do Popup </div>
-                                        <button> Fechar </button>
-                                        </Popup>
+                                        <Link to="/BuscaDoador/DoadorDoacao">Doações</Link>
                                     </td>
                                     <td>
                                         <button onClick={() => handleDelete(doador.codigo)}>Excluir</button>

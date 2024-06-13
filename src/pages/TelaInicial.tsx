@@ -1,9 +1,7 @@
 // TODO resolver problemas de rsponsividade
 
 import React from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import CadastroDoador from './CadastroDoador.tsx';
-import BuscaDoador from './BuscaDoador.tsx';
+import { Link } from 'react-router-dom';
 
 function TelaInicial() {
   return (
