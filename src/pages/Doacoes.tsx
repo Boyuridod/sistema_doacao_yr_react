@@ -1,11 +1,35 @@
 import React from "react";
-import "../styles/Doacoes.css"
+// import "../styles/Doacoes.css";
 
-function Doacoes(){
+function Doacoes() {
 
-    return(
+    return (
         <body>
-          <h1>N ta pronto kkkkk</h1>
+            <div>
+                <h1>Doações</h1>
+                <form action="">
+                    <label htmlFor="">Inicio</label>
+                    <input type="date" name="" id="" />
+                    <label htmlFor="">Fim</label>
+                    <input type="date" name="" id="" />
+                    <br />
+                    <button type="submit">Buscar</button>
+                </form>
+            </div>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Hora</th>
+                            <th>Volume</th>
+                            <th>Tipo</th>
+                            <th>RH</th>
+                            <th>Doador</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
         </body>
     )
 

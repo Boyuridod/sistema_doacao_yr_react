@@ -1,7 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import "../styles/BuscaDoador.css";
+// import "../styles/BuscaDoador.css";
 
 interface Doador {
     nome: string;
@@ -13,7 +12,6 @@ interface Doador {
 }
 
 function BuscaDoador() {
-    const navigate = useNavigate();
     const [doadores, setDoadores] = useState<Doador[]>([]);
     const [searchParams, setSearchParams] = useState({
         nome: "",

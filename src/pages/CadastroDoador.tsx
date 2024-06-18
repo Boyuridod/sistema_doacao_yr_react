@@ -59,9 +59,9 @@ function CadastroDoador() {
 
     return (
         <body>
-            <div className="ImagemHospital">
-                <img src="/Images/sala_de_hospital_cortada.jpeg" alt="Img" />
-            </div>
+            {/* <div className="ImagemHospital">
+                <img src="/Images/sala_de_hospital_cortada.jpeg" alt="Img" id="img"/>
+            </div> */}
             <div className="area_cadastro">
                 <form className="formulario" onSubmit={handleCadastro}>
                     <h1 className="titulo_formulario">Cadastro de doador</h1>
