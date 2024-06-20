@@ -1,5 +1,6 @@
 import React from "react";
 import estilo from "../styles/CadastroDoador.module.css";
+import "../global.d.ts";
 
 function CadastroDoador() {
 

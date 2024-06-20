@@ -1,11 +1,6 @@
-/* @import url('../colors/cores.css');
+@import url('../colors/cores.css');
 
-body {
-
-    background-color: var(--azulpastel);
-
-}
-
+/*
 .CampoDePesquisa {
 
     display: flex;
@@ -39,27 +34,6 @@ body {
     border: 1px solid;
     border-radius: 5px;
     padding-left: 5px;
-
-}
-
-#nome,
-#cpf,
-#contato {
-
-    margin-left: 10px;
-
-}
-
-#nome,
-#cpf {
-
-    margin-bottom: 10px;
-
-}
-
-#nome {
-
-    width: 40vh;
 
 }
 

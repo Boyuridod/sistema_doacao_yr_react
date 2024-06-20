@@ -12,14 +12,16 @@ interface Doador {
 }
 
 function BuscaDoador() {
-    const [doadores, setDoadores] = useState<Doador[]>([]);
-    const [searchParams, setSearchParams] = useState({
+    const initialState = {
         nome: "",
         cpf: "",
         contato: "",
         tipoSanguineo: "",
         fatorRh: ""
-    });
+    };
+
+    const [doadores, setDoadores] = useState<Doador[]>([]);
+    const [searchParams, setSearchParams] = useState(initialState);
     const [loading, setLoading] = useState(false);
     const [noResults, setNoResults] = useState(false);
     const [isEditing, setIsEditing] = useState<{ [key: number]: boolean }>({});
@@ -120,13 +122,16 @@ function BuscaDoador() {
         }
     };
 
+    const handleClear = () => {
+        setSearchParams(initialState);
+    };
+
     return (
-        <div className="container">
-            {/* <button className="back-button" onClick={() => navigate('/')}>Voltar</button> */}
-            <div className="search-container">
-                <form className="form" onSubmit={handleSearch}>
-                    <h1 className="title">Busca de doador</h1>
-                    <div className="input-group">
+        <div className={estilo.container}>
+            <div className={estilo.searchContainer}>
+                <form className={estilo.form} onSubmit={handleSearch} onReset={handleClear}>
+                    <h1 className={estilo.title}>Busca de doador</h1>
+                    <div className={estilo.inputGroup}>
                         <input
                             type="text"
                             name="nome"
@@ -149,7 +154,7 @@ function BuscaDoador() {
                             onChange={handleInputChange}
                         />
                     </div>
-                    <div className="radio-group">
+                    <div className={estilo.radioGroup}>
                         <input
                             type="radio"
                             name="tipoSanguineo"
@@ -187,7 +192,7 @@ function BuscaDoador() {
                         />
                         <label htmlFor="O">O</label>
                     </div>
-                    <div className="radio-group">
+                    <div className={estilo.radioGroup}>
                         <input
                             type="radio"
                             name="fatorRh"
@@ -207,12 +212,15 @@ function BuscaDoador() {
                         />
                         <label htmlFor="negativo">-</label>
                     </div>
-                    <button type="submit" className="search-button" disabled={loading}>
-                        {loading ? 'Buscando...' : 'Buscar'}
-                    </button>
+                    <div className={estilo.div_botoes}>
+                        <button type="submit" className={estilo.searchButton} disabled={loading}>
+                            {loading ? 'Buscando...' : 'Buscar'}
+                        </button>
+                        <button type="reset" className={estilo.clearButton}>Limpar</button>
+                    </div>
                 </form>
             </div>
-            <div className="results-container">
+            <div className={estilo.resultsContainer}>
                 <h1>Resultados da busca:</h1>
                 {noResults ? <p>Nenhum resultado encontrado.</p> : (
                     <table>
@@ -256,45 +264,22 @@ function BuscaDoador() {
                                             doador.contato
                                         )}
                                     </td>
-                                    <td>
-                                        {isEditing[doador.codigo] ? (
-                                            <input
-                                                type="text"
-                                                name="tipoSanguineo"
-                                                value={doador.tipoSanguineo}
-                                                onChange={(e) => handleUpdateChange(doador.codigo, e)}
-                                            />
-                                        ) : (
-                                            doador.tipoSanguineo
-                                        )}
-                                    </td>
-                                    <td>
-                                        {isEditing[doador.codigo] ? (
-                                            <input
-                                                type="text"
-                                                name="fatorRh"
-                                                value={doador.fatorRh}
-                                                onChange={(e) => handleUpdateChange(doador.codigo, e)}
-                                            />
-                                        ) : (
-                                            doador.fatorRh
-                                        )}
-                                    </td>
+                                    <td>{doador.tipoSanguineo}</td>
+                                    <td>{doador.fatorRh}</td>
                                     <td>
                                         {isEditing[doador.codigo] ? (
                                             <button
                                                 onClick={() => handleUpdate(doador.codigo)}
-                                                disabled={updating[doador.codigo]} // Desabilita o botão se a atualização estiver em andamento
+                                                disabled={updating[doador.codigo]}
                                             >
                                                 {updating[doador.codigo] ? 'Atualizando...' : 'Salvar'}
                                             </button>
-
                                         ) : (
                                             <button onClick={() => handleEdit(doador.codigo)}>Editar</button>
                                         )}
                                     </td>
                                     <td>
-                                        <Link to="/BuscaDoador/DoadorDoacao">Doações</Link>
+                                        <Link to={`/doacao/${doador.codigo}`}>Doar</Link>
                                     </td>
                                     <td>
                                         <button onClick={() => handleDelete(doador.codigo)}>Excluir</button>
