@@ -1,0 +1,117 @@
+@import url('../colors/cores.css');
+
+.body{
+
+    display: flex;
+    justify-content: center;
+
+}
+
+.area_cadastro {
+
+    margin-top: 20vh;
+    background-color: var(--azulpastel);
+
+}
+
+.formulario {
+
+    background-color: var(--branco);
+    border: 1px solid;
+    border-radius: 10%;
+    width: 350px;
+
+}
+
+.titulo_formulario {
+
+    margin: 2vh;
+    margin-left: 60px;
+
+}
+
+.labelFormulario {
+
+    margin-left: 1vw;
+
+}
+
+.inputFormulario {
+
+    border: 1px solid;
+    border-radius: 1vw;
+    padding-left: 10px;
+
+}
+
+#contato {
+
+    width: 25vh;
+
+}
+
+#cpf {
+
+    width: 25vh;
+
+}
+
+#nome {
+
+    width: 35vh;
+
+}
+
+.opcao {
+
+    display: flex;
+    margin-bottom: 1vw;
+
+}
+
+.opcao_tipo{
+
+    margin-left: 1vw;
+
+}
+.opcao_rh {
+
+    margin-left: 5vw;
+
+}
+
+.div_botoes {
+
+    text-align: center;
+    margin-bottom: 2vh;
+
+}
+
+.botaoCadastrar{
+
+    width: 7vw;
+    height: 5vh;
+    color: var(--branco);
+    background-color: var(--verde);
+    border: 0px;
+    border-radius: 10px;
+
+}
+
+.botaoLimpar{
+
+    width: 7vw;
+    height: 5vh;
+    color: var(--branco);
+    background-color: var(--vermelho);
+    border: 0px;
+    border-radius: 10px;
+    margin-left: 10px;
+
+}
+
+.botaoCadastrar:hover, .botaoLimpar:hover{
+
+    opacity: 0.7;
+
+}

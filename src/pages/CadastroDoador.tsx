@@ -1,10 +1,10 @@
 import React from "react";
-import "../styles/CadastroDoador.css"
+import estilo from "../styles/CadastroDoador.module.css";
 
 function CadastroDoador() {
 
     const handleCadastro = async (event: React.FormEvent<HTMLFormElement>) => {
-        //event.preventDefault(); // Evita o comportamento padrão do formulário de recarregar a página
+        event.preventDefault(); // Evita o comportamento padrão do formulário de recarregar a página
 
         // Obtenha os dados do formulário
         const nomeInput = document.getElementById("nome") as HTMLInputElement | null;
@@ -46,6 +46,7 @@ function CadastroDoador() {
                 if (response.ok) {
                     console.log("Doador cadastrado com sucesso!");
                     // Realize aqui qualquer ação adicional após o cadastro bem-sucedido
+                    window.location.reload();
                 } else {
                     console.error('Falha ao cadastrar doador.');
                 }
@@ -58,48 +59,48 @@ function CadastroDoador() {
     };
 
     return (
-        <body>
-            {/* <div className="ImagemHospital">
+        <body className={estilo.body}>
+            {/* <div className={estilo.ImagemHospital}>
                 <img src="/Images/sala_de_hospital_cortada.jpeg" alt="Img" id="img"/>
             </div> */}
-            <div className="area_cadastro">
-                <form className="formulario" onSubmit={handleCadastro}>
-                    <h1 className="titulo_formulario">Cadastro de doador</h1>
-                    <label htmlFor="nome" className="labelFormulario">Nome:
+            <div className={estilo.area_cadastro}>
+                <form className={estilo.formulario} onSubmit={handleCadastro}>
+                    <h1 className={estilo.titulo_formulario}>Cadastro de doador</h1>
+                    <label htmlFor="nome" className={estilo.labelFormulario}>Nome:
                         <input
                             type="text"
                             name="nome"
                             id="nome"
                             placeholder="Insira o nome aqui"
-                            className="inputFormulario"
+                            className={estilo.inputFormulario}
                             required
                         />
                     </label>
                     <br />
-                    <label htmlFor="cpf" className="labelFormulario">CPF:
+                    <label htmlFor="cpf" className={estilo.labelFormulario}>CPF:
                         <input
                             type="text"
                             name="cpf"
                             id="cpf"
                             placeholder="Insira o CPF"
-                            className="inputFormulario"
+                            className={estilo.inputFormulario}
                             required
                         />
                     </label>
                     <br />
-                    <label htmlFor="contato" className="labelFormulario">Contato:
+                    <label htmlFor="contato" className={estilo.labelFormulario}>Contato:
                         <input
                             type="tel"
                             name="contato"
                             id="contato"
-                            className="inputFormulario"
+                            className={estilo.inputFormulario}
                             placeholder="Número de contato"
                             required
                         />
                     </label>
                     <br />
-                    <div className="opcao">
-                        <div className="opcao_tipo">
+                    <div className={estilo.opcao}>
+                        <div className={estilo.opcao_tipo}>
                             <p>Tipo sanguíneo:</p>
                             <input
                                 type="radio"
@@ -133,7 +134,7 @@ function CadastroDoador() {
                             />
                             <label htmlFor="O">O</label>
                         </div>
-                        <div className="opcao_rh">
+                        <div className={estilo.opcao_rh}>
                             <p>Fator RH:</p>
                             <input
                                 type="radio"
@@ -153,9 +154,9 @@ function CadastroDoador() {
                             <br />
                         </div>
                     </div>
-                    <div className="div_botoes">
-                        <button className="botao" id="cadastrar" type="submit">Cadastrar</button>
-                        <button className="botao" id="limpar" type="reset">Limpar</button>
+                    <div className={estilo.div_botoes}>
+                        <button className={estilo.botaoCadastrar} id="cadastrar" type="submit">Cadastrar</button>
+                        <button className={estilo.botaoLimpar} id="limpar" type="reset">Limpar</button>
                     </div>
                 </form>
             </div>

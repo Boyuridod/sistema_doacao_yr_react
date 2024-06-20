@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { Link } from "react-router-dom";
-// import "../styles/BuscaDoador.css";
+import estilo from "../styles/BuscaDoador.module.css";
 
 interface Doador {
     nome: string;
