@@ -42,8 +42,6 @@ function CadastroDoador() {
                     body: JSON.stringify(dadosDoador)
                 });
 
-                // FIXME Url sendo alterada quando novo doador é cadastrado
-
                 if (response.ok) {
                     console.log("Doador cadastrado com sucesso!");
                     // Realize aqui qualquer ação adicional após o cadastro bem-sucedido
