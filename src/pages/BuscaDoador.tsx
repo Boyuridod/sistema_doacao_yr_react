@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { Link } from "react-router-dom";
-import "../global.d.ts"
+import "../global.d.ts";
 import estilo from "../styles/BuscaDoador.module.css";
 
 interface Doador {
@@ -238,8 +238,8 @@ function BuscaDoador() {
                             </tr>
                         </thead>
                         <tbody>
-                            {doadores.map((doador, index) => (
-                                <tr key={index}>
+                            {doadores.map((doador) => (
+                                <tr key={doador.codigo}>
                                     <td>
                                         {isEditing[doador.codigo] ? (
                                             <input
@@ -280,7 +280,7 @@ function BuscaDoador() {
                                         )}
                                     </td>
                                     <td>
-                                        <Link to={`/DoadorDoacao/${doador.codigo}`}>Doar</Link>
+                                    <Link to={`/DoadorDoacao/${doador.codigo}`} state={{ codigo: doador.codigo }}>Doar</Link>
                                     </td>
                                     <td>
                                         <button onClick={() => handleDelete(doador.codigo)}>Excluir</button>
