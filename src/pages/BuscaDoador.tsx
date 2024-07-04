@@ -99,7 +99,7 @@ function BuscaDoador() {
         );
     };
 
-    const handleUpdate = async (codigo) => {
+    const handleUpdate = async (codigo: number) => {
         try {
             setUpdating(prevState => ({ ...prevState, [codigo]: true }));
             const updatedDoador = doadores.find(doador => doador.codigo === codigo);
@@ -280,7 +280,7 @@ function BuscaDoador() {
                                         )}
                                     </td>
                                     <td>
-                                    <Link to={`/DoadorDoacao/${doador.codigo}`} state={{ codigo: doador.codigo }}>Doar</Link>
+                                        <Link to="/BuscaDoador/DoadorDoacao" state={{ codigo: doador.codigo }}>Doar</Link>
                                     </td>
                                     <td>
                                         <button onClick={() => handleDelete(doador.codigo)}>Excluir</button>
