@@ -19,7 +19,7 @@ function DoadorDoacao() {
   useEffect(() => {
     const fetchDoador = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/getOneDoador`, {
+        const response = await fetch(`http://localhost:5000/api/getOneById`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -33,30 +33,23 @@ function DoadorDoacao() {
 
         const data: Doador = await response.json();
         setDoador(data); // Define o objeto doador retornado pela API
+        // Inicializa os campos da doação após carregar o doador
+        setDoacao({
+          volume: "",
+          data: "", // Ajuste conforme necessário
+          hora: "", // Ajuste conforme necessário
+        });
       } catch (error) {
         console.error("Erro ao buscar doador:", error);
       }
     };
 
     fetchDoador();
-  }, [codigo]);
+  }, []);
 
-  // Função para lidar com a mudança nos campos de dados do doador
-  const handleDoadorInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setDoador((prevState) => ({
-      ...prevState!,
-      [name]: value,
-    }));
-  };
-
-  // Função para lidar com a mudança nos campos de dados da doação
-  const handleDoacaoInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setDoacao((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    setDoacao((prevState) => ({ ...prevState, [name]: value }));
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -108,7 +101,7 @@ function DoadorDoacao() {
                     name="nome"
                     placeholder="Nome"
                     value={doador.nome}
-                    onChange={handleDoadorInputChange} // Lidar com a mudança de dados do doador
+                    readOnly  // Garante que o input seja somente leitura
                   />
                 </td>
                 <td>
@@ -117,7 +110,7 @@ function DoadorDoacao() {
                     name="cpf"
                     placeholder="CPF"
                     value={doador.cpf}
-                    onChange={handleDoadorInputChange} // Lidar com a mudança de dados do doador
+                    readOnly
                   />
                 </td>
                 <td>
@@ -126,7 +119,7 @@ function DoadorDoacao() {
                     name="contato"
                     placeholder="Contato"
                     value={doador.contato}
-                    onChange={handleDoadorInputChange} // Lidar com a mudança de dados do doador
+                    readOnly
                   />
                 </td>
                 <td>
@@ -135,7 +128,7 @@ function DoadorDoacao() {
                     name="tipoSanguineo"
                     placeholder="Tipo Sanguíneo"
                     value={doador.tipoSanguineo}
-                    onChange={handleDoadorInputChange} // Lidar com a mudança de dados do doador
+                    readOnly
                   />
                 </td>
                 <td>
@@ -144,7 +137,7 @@ function DoadorDoacao() {
                     name="fatorRh"
                     placeholder="Fator RH"
                     value={doador.fatorRh}
-                    onChange={handleDoadorInputChange} // Lidar com a mudança de dados do doador
+                    readOnly
                   />
                 </td>
               </tr>
@@ -164,21 +157,21 @@ function DoadorDoacao() {
             type="number"
             name="volume"
             value={doacao.volume}
-            onChange={handleDoacaoInputChange} // Lidar com a mudança de dados da doação
+            onChange={handleInputChange}
           />
           <label htmlFor="data">Data da doação:</label>
           <input
             type="date"
             name="data"
             value={doacao.data}
-            onChange={handleDoacaoInputChange} // Lidar com a mudança de dados da doação
+            onChange={handleInputChange}
           />
           <label htmlFor="hora">Hora:</label>
           <input
             type="time"
             name="hora"
             value={doacao.hora}
-            onChange={handleDoacaoInputChange} // Lidar com a mudança de dados da doação
+            onChange={handleInputChange}
           />
           <br />
           <button type="submit">Cadastrar nova doação</button>
