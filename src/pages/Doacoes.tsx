@@ -19,12 +19,15 @@ function Doacoes() {
         event.preventDefault();
 
         try {
+            const formattedStartDate = formatDate(startDate);
+            const formattedEndDate = formatDate(endDate);
+
             const response = await fetch(`http://localhost:5000/api/getFromDates`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ startDate, endDate }),
+                body: JSON.stringify({ startDate: formattedStartDate, endDate: formattedEndDate }),
             });
 
             if (response.ok) {
@@ -36,6 +39,11 @@ function Doacoes() {
         } catch (error) {
             console.error('Error:', error);
         }
+    };
+
+    const formatDate = (dateString: string): string => {
+        const [year, month, day] = dateString.split('-');
+        return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
     };
 
     return (
@@ -74,7 +82,7 @@ function Doacoes() {
                     <tbody>
                         {doacoes.map((doacao) => (
                             <tr key={doacao.id}>
-                                <td>{new Date(doacao.data).toLocaleDateString()}</td>
+                                <td>{new Date(doacao.data).toLocaleDateString('en-US')}</td>
                                 <td>{new Date(doacao.data).toLocaleTimeString()}</td>
                                 <td>{doacao.volume}</td>
                                 <td>{doacao.tipo}</td>
